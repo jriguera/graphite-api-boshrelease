@@ -7,4 +7,4 @@ dependencies:
 - python27
 
 files:
-- setuptools/setuptools-18.6.1.tar.gz
+- setuptools/setuptools-18.6.1.tar.gz	# https://pypi.python.org/pypi/setuptools

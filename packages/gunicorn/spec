@@ -6,4 +6,4 @@ dependencies:
 - setuptools
 
 files:
-- gunicorn/gunicorn-19.4.1.tar.gz
+- gunicorn/gunicorn-19.4.1.tar.gz	# https://pypi.python.org/pypi/gunicorn/

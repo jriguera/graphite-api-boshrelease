@@ -7,4 +7,4 @@ dependencies:
 - openssl
 
 files:
-- python/Python-2.7.10.tar.xz
+- python/Python-2.7.10.tar.xz	# https://www.python.org/downloads/
