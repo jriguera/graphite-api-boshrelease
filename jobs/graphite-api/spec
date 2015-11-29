@@ -46,3 +46,7 @@ properties:
     description: Hash of carbon parameters
   graphite_api.es:
     description: Hash of ES parameters
+  graphite_api.cache:
+    description: Hash of cache parameters (simple, memcached, redis, filesystem)
+  graphite_api.statsd:
+    description: Hash of statsd parameters for InfluxDB

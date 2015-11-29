@@ -38,6 +38,14 @@ influxdb:
 <% end %>
 <% end %>
 
+<% if_p("graphite_api.statsd") do |statsd| %>
+statsd:
+   host: <%= statsd["host"] %>
+<% if statsd["port"] %>
+   port: <%= statsd["port"] %>                                                                                                                       
+<% end %>
+<% end %>
+
 <% if_p("graphite_api.cyanite") do |cyanite| %>
 # Graphite cyanite backend for cassandra
 cyanite:
@@ -83,4 +91,14 @@ es:
 <% end %> 
 <% end.else do %>
    enabled: false
+<% end %>
+
+<% if_p("graphite_api.cache") do |cache| %>
+cache:
+   type: <%= cache["type"] %>
+<% if cache["options"] %>
+<% cache["options"].each do |key, value| %>
+   <%= key %>: "<%= value %>"
+<% end %>
+<% end %>
 <% end %>

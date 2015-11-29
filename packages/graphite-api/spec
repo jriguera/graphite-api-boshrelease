@@ -10,4 +10,10 @@ dependencies:
 - libffi
 
 files:
-- graphite-api/graphite-api-1.1.2.tar.gz
+- graphite-api/graphite-api-1.1.2.tar.gz      # https://github.com/brutasse/graphite-api
+- graphite-api/graphite-influxdb-0.4.1.tar.gz # https://github.com/vimeo/graphite-influxdb
+- graphite-api/graphite-cyanite-0.4.6.tar.gz  # https://github.com/brutasse/graphite-cyanite
+- graphite-api/statsd-3.2.1.tar.gz            # https://github.com/jsocol/pystatsd
+- graphite-api/python-memcached-1.57.tar.gz   # https://github.com/linsomniac/python-memcached
+- graphite-api/redis-py-2.10.5.tar.gz         # https://github.com/andymccurdy/redis-py
+- graphite-api/Flask-Cache-0.13.1.tar.gz      # https://pypi.python.org/pypi/Flask-Cache

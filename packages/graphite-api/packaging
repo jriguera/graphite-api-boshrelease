@@ -1,9 +1,27 @@
 set -e -x
 
 echo "Extracting graphite-api ..."
-tar xzvf graphite-api/graphite-api-1.1.2.tar.gz
+tar xvf graphite-api/graphite-api-1.1.2.tar.gz
 
-echo "Creating the pip site packages ..."
+echo "Extracting graphite-influxdb ..."
+tar xvf graphite-api/graphite-influxdb-0.4.1.tar.gz
+
+echo "Extracting graphite-cyanite ..."
+tar xvf graphite-api/graphite-cyanite-0.4.6.tar.gz 
+
+echo "Extracting pystatsd ..."
+tar xvf graphite-api/statsd-3.2.1.tar.gz 
+
+echo "Extracting python-memcached ..."
+tar xvf graphite-api/python-memcached-1.57.tar.gz
+
+echo "Extracting redis-py ..."
+tar xvf graphite-api/redis-py-2.10.5.tar.gz
+
+echo "Extracting Flask-Cache ..."
+tar xvf graphite-api/Flask-Cache-0.13.1.tar.gz
+
+echo "Creating python site packages folder ..."
 mkdir -p ${BOSH_INSTALL_TARGET}/lib/python2.7/site-packages
 
 echo "Setting the PYTHONPATH with setuptools and graphite-api site packages ..."
@@ -23,5 +41,35 @@ export LD_LIBRARY_PATH="${LIBRARY_PATH}"
 
 echo "Installing graphite-api ..."
 pushd graphite-api-1.1.2
+  /var/vcap/packages/python27/bin/python setup.py install --prefix=${BOSH_INSTALL_TARGET}
+popd
+
+echo "Installing graphite-influxdb plugin ..."
+pushd graphite-influxdb-0.4.1
+  /var/vcap/packages/python27/bin/python setup.py install --prefix=${BOSH_INSTALL_TARGET}
+popd
+
+echo "Installing graphite-cyanite plugin ..."
+pushd graphite-cyanite-0.4.6
+  /var/vcap/packages/python27/bin/python setup.py install --prefix=${BOSH_INSTALL_TARGET}
+popd
+
+echo "Installing pystatsd ..."
+pushd pystatsd-3.2.1
+  /var/vcap/packages/python27/bin/python setup.py install --prefix=${BOSH_INSTALL_TARGET}
+popd
+
+echo "Installing python-memcached ..."
+pushd python-memcached-1.57
+  /var/vcap/packages/python27/bin/python setup.py install --prefix=${BOSH_INSTALL_TARGET}
+popd
+
+echo "Installing redis-py ..."
+pushd redis-py-2.10.5
+  /var/vcap/packages/python27/bin/python setup.py install --prefix=${BOSH_INSTALL_TARGET}
+popd
+
+echo "Installing flask-cache ..."
+pushd Flask-Cache-0.13.1
   /var/vcap/packages/python27/bin/python setup.py install --prefix=${BOSH_INSTALL_TARGET}
 popd
