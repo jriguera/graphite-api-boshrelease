@@ -28,7 +28,7 @@ bosh -n deploy
 For OpenStack, create a single VM:
 
 ```
-templates/make_manifest openstack-nova
+templates/make_manifest openstack templates/example-properties.yml
 bosh -n deploy
 ```
 
@@ -53,6 +53,6 @@ Where `- graphite-api` means you wish to use an existing security group called `
 You now suffix this file path to the `make_manifest` command:
 
 ```
-templates/make_manifest openstack-nova my-networking.yml
+templates/make_manifest openstack my-networking.yml
 bosh -n deploy
 ```
