@@ -1,0 +1,21 @@
+---
+properties:
+  graphite_api:
+    cache:
+      type: filesystem
+      options:
+        dir: '/var/vcap/sys/tmp/'
+    influxdb:
+      host: localhost
+      port: 8086
+      user: graphite
+      pass: graphite
+      db:   graphite
+      schema:
+        - ['high-res-metrics', 1]
+        - ['^collectd', 10]
+    es:
+      enabled: true
+      hosts:
+        - host: localhost
+          port: 9200
