@@ -1,0 +1,48 @@
+---
+name: graphite-api
+
+packages:
+- openssl
+- bzip2
+- zlib
+- libyaml
+- libpng
+- libffi
+- libcairo
+- setuptools
+- python27
+- graphite-api
+- gunicorn
+
+templates:
+  bin/graphite-api_ctl: bin/graphite-api
+  config/graphite-api.yaml.erb: config/graphite-api.yaml
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  bin/monit_debugger: bin/monit_debugger
+
+properties:
+  graphite_api.time_zone:
+    description: Time-zone
+    default: "UTC"
+  graphite_api.allowed_origins:
+    description: List of allowed origins
+    default: ['*']
+  graphite_api.port:
+    description: Listening port
+    default: 8888
+  graphite_api.workers:
+    description: Number of worker processes
+    default: 4
+  graphite_api.threads:
+    description: Number of threads per worker
+    default: 1
+  graphite_api.influxdb:
+    description: Hash of InfuxDB parameters
+  graphite_api.cyanite:
+    description: Hash of cyanite parameters
+  graphite_api.carbon:
+    description: Hash of carbon parameters
+  graphite_api.es:
+    description: Hash of ES parameters

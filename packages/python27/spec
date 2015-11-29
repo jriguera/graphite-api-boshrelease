@@ -1,0 +1,10 @@
+---
+name: python27
+
+dependencies:
+- zlib
+- bzip2
+- openssl
+
+files:
+- python/Python-2.7.10.tar.xz

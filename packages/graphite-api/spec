@@ -1,0 +1,13 @@
+---
+name: graphite-api
+
+dependencies:
+- openssl
+- python27
+- setuptools
+- libcairo
+- libyaml
+- libffi
+
+files:
+- graphite-api/graphite-api-1.1.2.tar.gz

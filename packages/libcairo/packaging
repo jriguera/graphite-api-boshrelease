@@ -1,0 +1,37 @@
+set -e -x
+
+echo "Extracting pkg-config ... "
+tar xvf libcairo/pkg-config-0.29.tar.gz
+
+echo "Extracting pixman ... "
+tar xvf libcairo/pixman-0.32.8.tar.gz
+
+echo "Extracting cairo ... "
+tar xvf libcairo/cairo-1.14.4.tar.xz
+
+echo "Building pkg-config ... "
+pushd pkg-config-0.29
+  ./configure --with-internal-glib --prefix=${BOSH_INSTALL_TARGET}
+  make
+  make install
+popd
+
+echo "Building pixman ... "
+export PKG_CONFIG="${BOSH_INSTALL_TARGET}/bin/pkg-config"
+export PKG_CONFIG_PATH="/var/vcap/packages/libpng/lib/pkgconfig:/var/vcap/packages/zlib/lib/pkgconfig"
+pushd pixman-0.32.8
+  ./configure --prefix=${BOSH_INSTALL_TARGET}
+  make
+  make install
+popd
+
+echo "Building cairo ... "
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:${BOSH_INSTALL_TARGET}/lib/pkgconfig"
+export LIBRARY_PATH="/var/vcap/packages/zlib/lib:${LIBRARY_PATH}"
+export CPPFLAGS="-I/var/vcap/packages/zlib/include ${CPPFLAGS}"
+export LDFLAGS="-L/var/vcap/packages/zlib/lib ${LDFLAGS}"
+pushd cairo-1.14.4
+  ./configure --prefix=${BOSH_INSTALL_TARGET} --enable-xlib=no --enable-xlib-xrender=no --enable-xcb=no --enable-quartz=no --enable-win32=no --enable-ft=no --enable-fc=no --enable-ps=no --enable-pdf=no --enable-svg=yes 
+  make
+  make install
+popd

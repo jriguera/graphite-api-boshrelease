@@ -1,0 +1,5 @@
+check process graphite-api
+  with pidfile /var/vcap/sys/run/graphite-api/graphite-api.pid
+  start program "/var/vcap/jobs/graphite-api/bin/graphite-api start"
+  stop program "/var/vcap/jobs/graphite-api/bin/graphite-api stop"
+  group vcap

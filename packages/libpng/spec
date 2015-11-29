@@ -1,0 +1,8 @@
+---
+name: libpng
+
+dependencies:
+- zlib
+
+files:
+- libpng/libpng-1.6.19.tar.gz

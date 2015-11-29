@@ -1,0 +1,9 @@
+---
+name: gunicorn
+
+dependencies:
+- python27
+- setuptools
+
+files:
+- gunicorn/gunicorn-19.4.1.tar.gz

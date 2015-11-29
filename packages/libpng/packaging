@@ -1,0 +1,16 @@
+set -e -x
+
+echo "Extracting libpng ... "
+tar xvf libpng/libpng-1.6.19.tar.gz
+
+echo "Defining libraries path ..."
+export CPPFLAGS="-I/var/vcap/packages/zlib/include ${CPPFLAGS}"
+export LDFLAGS="-L/var/vcap/packages/zlib/lib ${LDFLAGS}"
+export LIBRARY_PATH="/var/vcap/packages/zlib/lib:${LIBRARY_PATH}"
+
+echo "Building libpng ... "
+pushd libpng-1.6.19
+  ./configure --prefix=${BOSH_INSTALL_TARGET}
+  make
+  make install
+popd

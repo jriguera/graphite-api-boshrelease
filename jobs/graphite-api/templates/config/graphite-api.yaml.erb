@@ -1,0 +1,86 @@
+search_index: /var/vcap/store/graphite-api/index
+
+time_zone: <%= p("graphite_api.time_zone", "UTC") %>
+allowed_origins:
+<% p("graphite_api.allowed_origins", ["*"]).each do |origin| %>
+  - "<%= origin %>"
+<% end %>
+
+finders:
+<% if_p("graphite_api.influxdb") do %>
+  - graphite_influxdb.InfluxdbFinder
+<% end.else_if_p("graphite_api.cyanite") do %>
+  - cyanite.CyaniteFinder
+<% end.else do %>
+  - graphite_api.finders.whisper.WhisperFinder
+<% end %>
+
+functions:
+  - graphite_api.functions.SeriesFunctions
+  - graphite_api.functions.PieFunctions
+
+<% if_p("graphite_api.influxdb") do |influxdb| %>
+# Graphite backend for influxdb
+influxdb:
+   host: <%= influxdb["host"] %>
+<% if influxdb["port"] %>
+   port: <%= influxdb["port"] %>  
+<% else %>
+   port: 8086
+<% end %>
+   user: <%= influxdb["user"] %>
+   pass: <%= influxdb["pass"] %>
+   db: <%= influxdb["db"] %>
+   ssl: false
+   schema:
+<% influxdb["schema"].each do |schema| %>
+     - <%= schema %>
+<% end %>
+<% end %>
+
+<% if_p("graphite_api.cyanite") do |cyanite| %>
+# Graphite cyanite backend for cassandra
+cyanite:
+   urls:
+<% cyanite.each do |server| %>
+     - http://<%= server["host"] %>:<%= server["port"] %>
+<% end %>
+<% end %>
+
+<% if_p("graphite_api.carbon") do |carbon| %>
+# Graphite backend for carbon
+carbon:
+   hosts:
+<% carbon["hosts"].each do |server| %>
+     - <%= server["host"] %>:<%= server["port"] %>
+<% end %>
+   timeout: 60
+   replication_factor: 1
+   retry_delay: 15
+<% if carbon["prefix"] %>
+   carbon_prefix: <%= carbon["prefix"] %>
+<% else %>
+   carbon_prefix: carbon
+<% end %>
+<% end %>
+
+es:
+<% if_p("graphite_api.es") do |es| %>
+   enabled: true
+   hosts:
+<% es["hosts"].each do |server| %>
+     - <%= server["host"] %>:<%= server["port"] %>
+<% end %>
+<% if es["index"] %>
+   index: "<%= es["index"] %>"
+<% else %>
+   index: "graphite_metrics"
+<% end %> 
+<% if es["field"] %>
+   field: "<%= es["field"] %>"
+<% else %>
+   field: "_id"
+<% end %> 
+<% end.else do %>
+   enabled: false
+<% end %>

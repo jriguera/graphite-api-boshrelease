@@ -1,0 +1,16 @@
+set -e -x
+
+echo "Extracting gunicorn ..."
+tar xzvf gunicorn/gunicorn-19.4.1.tar.gz
+
+echo "Creating the pip site packages ..."
+mkdir -p ${BOSH_INSTALL_TARGET}/lib/python2.7/site-packages
+
+echo "Setting the PYTHONPATH with setuptools and gunicorn site packages ..."
+export PYTHONPATH=${BOSH_INSTALL_TARGET}/lib/python2.7/site-packages:${PYTHONPATH}
+export PYTHONPATH=/var/vcap/packages/setuptools/lib/python2.7/site-packages:${PYTHONPATH}
+
+echo "Installing gunicorn ..."
+pushd gunicorn-19.4.1
+  /var/vcap/packages/python27/bin/python setup.py install --prefix=${BOSH_INSTALL_TARGET}
+popd
